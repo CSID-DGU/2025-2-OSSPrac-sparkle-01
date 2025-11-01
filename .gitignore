@@ -1,0 +1,14 @@
+# 파이썬
+__pycache__/
+*.pyc
+
+# 가상환경
+venv/
+.env
+.env.*
+
+# VSCode
+.vscode/
+
+# 기타
+*.log
