@@ -69,29 +69,33 @@
         button:hover {
             background-color: #45a049;
         }
+        .highlight {
+            color:red;
+        }
+        
     </style>
 </head>
 <body>
     <form action="/result" method="POST">
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Name<span class="highlight"> *</span></label>
             <input type="text" id="name" name="name" placeholder="김동국" required>
         </div>
         
         <div class="form-group">
-            <label for="student_number">Student Number</label>
+            <label for="student_number">Student Number<span class="highlight"> *</span></label>
             <input type="text" id="student_number" name="student_number" placeholder="2020xxxx" required>
         </div>
         
         <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email">Email<span class="highlight"> *</span></label>
             <input type="text" id="email" name="email" placeholder="xxxxxx@dgu.ac.kr" required> 
             <br>
             <button class="Email_Verification" type="button">Verify Email</button>
         </div>
 
         <div class="form-group">
-            <label>Gender</label>
+            <label>Gender<span class="highlight"> *</span></label>
             <div class="radio-group">
                 <label>
                     <input type="radio" name="gender" value="Male"> Male
@@ -103,12 +107,12 @@
         </div>
         
         <div class="form-group">
-            <label for="major">Major</label>
+            <label for="major">Major<span class="highlight"> *</span></label>
             <input type="text" id="major" name="major" placeholder="융합소프트웨어" required>
         </div>
         
         <div class="form-group"> <!--Field 추가-->
-            <label for="field">Field</label>
+            <label for="field">Field<span class="highlight"> *</span></label>
             <select id="field" name="field">
                 <option value="선택안함">선택하세요</option>
                 <option value="AI/Data Engineering">AI/Data Engineering</option>
