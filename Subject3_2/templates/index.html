@@ -1,1 +1,841 @@
-print("Hello! I`m index page")
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkle - 팀 소개</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap">
+    
+    <style>
+        /* 기본 스타일 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        
+        main {
+            margin-top: 70px;
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            color: #333;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero .motto {
+            color: #667eea;
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .hero .description {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .hero-since {
+            color: #999;
+            margin-top: 1rem;
+        }
+        
+        .team-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #667eea;
+            margin: 10px auto;
+        }
+        
+        /* 팀장 카드 스타일 */
+        .leader-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0 3rem 0;
+        }
+        
+        .leader-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+            max-width: 300px;
+            width: 100%; /* 모바일 대응 */
+        }
+        
+        .leader-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
+        }
+        
+        .leader-card .member-photo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .leader-card .member-name {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .leader-card .member-role {
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .leader-card .member-position {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .leader-card .member-department {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .leader-card .skill-tag {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        /* 팀원 구분선 스타일 */
+        .members-divider {
+            text-align: center;
+            margin: 3rem 0 2rem 0;
+            position: relative;
+        }
+        
+        .members-divider::before,
+        .members-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 35%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #667eea, transparent);
+            transform: translateY(-50%);
+        }
+        
+        .members-divider::before {
+            left: 0;
+            background: linear-gradient(to right, transparent, #667eea);
+        }
+        
+        .members-divider::after {
+            right: 0;
+            background: linear-gradient(to left, transparent, #667eea);
+        }
+        
+        .members-divider span {
+            color: #667eea;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: white;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* 일반 팀원 카드 스타일 */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .member-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .member-photo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .member-name {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-role {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .member-position {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .member-department {
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .skill-tag {
+            background: white;
+            color: #667eea;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        /* 프로젝트 섹션 스타일 */
+        .projects-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .project-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .project-title {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-tag {
+            background: #667eea;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+        }
+        
+        .project-members {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .project-status {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .status-ongoing {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .status-completed {
+            background: #2196f3;
+            color: white;
+        }
+        
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        
+        .footer-copyright-sub {
+            color: #999;
+            margin-top: 0.1rem;
+        }
+        
+        /* 비디오 섹션 스타일 */
+        .video-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .embed-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 비율 */
+            height: 0;
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-placeholder {
+            background: #f0f0f0;
+            border-radius: 10px;
+            padding: 3rem;
+            display: inline-block;
+        }
+        
+        .video-placeholder-text {
+            color: #666;
+        }
+        
+        .video-placeholder-subtext {
+            color: #999;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .leader-card {
+                padding: 2rem;
+            }
+            
+            .leader-card .member-name {
+                font-size: 1.5rem;
+            }
+            
+            .members-divider::before,
+            .members-divider::after {
+                width: 20%;
+            }
+            
+            .nav-links {
+                display: none; /* 모바일에서 숨김 (간단한 예시) */
+            }
+        }
+
+        /* --- 모달 스타일 --- */
+        .modal {
+            display: none; /* 기본적으로 숨김 */
+            position: fixed;
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7); 
+            /* FIX 1: Safari 호환성 추가 */
+            -webkit-backdrop-filter: blur(4px); 
+            backdrop-filter: blur(4px);
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; 
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 550px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            line-height: 20px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #333;
+        }
+
+        .modal-photo {
+            font-size: 5rem;
+            display: block;
+            margin: 0 auto 1rem;
+            width: fit-content;
+        }
+        
+        .modal-detail h3 {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .modal-detail p {
+            margin-bottom: 0.4rem;
+            color: #555;
+            text-align: center;
+        }
+
+        .modal-detail .detail-label {
+            font-weight: bold;
+            color: #333;
+            display: inline-block;
+            width: 80px;
+            text-align: left;
+        }
+        
+        .modal-contact-info {
+            background: #f0f4ff;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .modal-contact-info p {
+            text-align: left;
+            margin-left: 80px;
+        }
+
+        .modal-bio {
+            font-style: italic;
+            color: #777;
+            padding: 1rem;
+            border-left: 3px solid #764ba2;
+            margin-top: 1rem;
+            text-align: left;
+            line-height: 1.5;
+            min-height: 50px;
+        }
+        .modal-skills {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 500px) {
+            .modal-content {
+                margin: 5% auto;
+            }
+            .modal-contact-info p {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Sparkle</div>
+            <ul class="nav-links">
+                <li><a href="/index">홈</a></li>
+                <li><a href="/input">팀원 추가</a></li>
+                <li><a href="/contact">연락하기</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- 팀 소개 -->
+        <section class="hero">
+            <h1>Sparkle</h1>
+            <p class="motto">"혁신을 통한 미래 창조"</p>
+            <p class="description">-자유멘트- 팀입니다.</p>
+            <p class="hero-since">Since 2025-10</p>
+        </section>
+        
+        <!-- 팀원 소개 -->
+        <section class="team-section">
+            <h2 class="section-title">팀 소개</h2>
+            
+            <!-- 팀장 -->
+            <div class="leader-container">
+                <div class="leader-card" onclick="showMemberModal(1)">
+                    <div class="member-photo">👨‍💻</div>
+                    <h3 class="member-name">오지원</h3>
+                    <p class="member-role">팀장</p>
+                    <p class="member-position">Project Manager & Security Specialist</p>
+                    <p class="member-department">융합보안학과</p>
+                    <div class="skills">
+                        <span class="skill-tag">Network Security</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Penetration Testing</span>
+                        <span class="skill-tag">Solution Development</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 구분선 -->
+            <div class="members-divider">
+                <span>팀원</span>
+            </div>
+            
+            <!-- 팀원들 -->
+            <div class="members-grid">
+                <!-- 팀원 1 -->
+                <div class="member-card" onclick="showMemberModal(2)">
+                    <div class="member-photo">👩‍💻</div>
+                    <h3 class="member-name">조혜림</h3>
+                    <p class="member-role">팀원</p>
+                    <p class="member-position">AI Developer</p>
+                    <p class="member-department">융합보안학과</p>
+                    <div class="skills">
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">HuggingFace</span>
+                    </div>
+                </div>
+                
+                <!-- 팀원 2 -->
+                <div class="member-card" onclick="showMemberModal(3)">
+                    <div class="member-photo">👨‍💻</div>
+                    <h3 class="member-name">장서준</h3>
+                    <p class="member-role">팀원</p>
+                    <p class="member-position">Backend Developer</p>
+                    <p class="member-department">국제통상학과</p>
+                    <div class="skills">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">Docker</span>
+                    </div>
+                </div>
+                
+                <!-- 팀원 3 -->
+                <div class="member-card" onclick="showMemberModal(4)">
+                    <div class="member-photo">👨‍💻</div>
+                    <h3 class="member-name">김태훈</h3>
+                    <p class="member-role">팀원</p>
+                    <p class="member-position">Frontend Developer & UI/UX Designer</p>
+                    <p class="member-department">산업시스템공학과</p>
+                    <div class="skills">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Vue.js</span>
+                        <span class="skill-tag">UI/UX Design</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 프로젝트 -->
+        <section class="projects-section">
+            <h2 class="section-title">주요 프로젝트</h2>
+            <div class="projects-grid">
+                <!-- 프로젝트 1 -->
+                <div class="project-card">
+                    <h3 class="project-title">Smart Security System</h3>
+                    <p class="project-description">AI 기반 자동화 솔루션. 실시간 위협 탐지 및 대응 기능을 제공합니다.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">Linux</span>
+                        <span class="tech-tag">Raspberry Pi</span>
+                    </div>
+                    <p class="project-members">참여: 오지원, 조혜림</p>
+                    <span class="project-status status-ongoing">진행중</span>
+                </div>
+                
+                <!-- 프로젝트 2 -->
+                <div class="project-card">
+                    <h3 class="project-title">Cloud Management Platform</h3>
+                    <p class="project-description">클라우드 자원(VM, Storage)의 효율적인 모니터링 및 관리 플랫폼입니다.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">MySQL</span>
+                    </div>
+                    <p class="project-members">참여: 장서준, 김태훈</p>
+                    <span class="project-status status-completed">완료</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 팀 소개 영상 -->
+        <section class="team-section">
+            <h2 class="section-title">팀 소개 영상</h2>
+            <div class="video-container">
+                <div class="embed-container">
+                    <iframe
+                        src="https://www.youtube.com/embed/vfczBF5E8bE"
+                        frameborder="0"
+                        title="팀 소개 영상"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Sparkle. All rights reserved.</p>
+        <p class="footer-copyright-sub">Made by Sparkle team</p>
+    </footer>
+
+    <!-- 모달 (기존과 동일) -->
+    <div id="memberModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <div class="modal-detail">
+                <!-- 모달 내용은 JavaScript로 채워짐 -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const MEMBERS_DATA = {
+            1: {
+                name: "오지원",
+                role: "팀장",
+                position: "Project Manager & Security Specialist",
+                department: "융합보안학과",
+                phone: "010-5119-33**",
+                email: "neje***@dgu.ac.kr",
+                github: "github.com/nejenne",
+                bio: "4년간의 IT 경험과 솔루션 개발 및 자동화, 보안 전문 지식을 바탕으로 팀을 이끌고 있습니다.",
+                skills: ["Network Security", "Python", "Penetration Testing", "Solution Development"],
+                photo: "👨‍💻"
+            },
+            2: {
+                name: "조혜림",
+                role: "팀원",
+                position: "AI Developer",
+                department: "융합보안학과",
+                phone: "010-****",
+                email: "test@dgu.ac.kr",
+                github: "github.com/*",
+                bio: "AI와 머신러닝을 활용한 혁신적인 솔루션 개발에 집중하고 있습니다.",
+                skills: ["Machine Learning", "TensorFlow", "HuggingFace", "Computer Vision"],
+                photo: "👩‍💻"
+            },
+            3: {
+                "id": 3,
+                "name": "장서준",
+                "role": "팀원",
+                "position": "Backend Developer",
+                "department": "국제통상학과",
+                "phone": "010-****",
+                "email": "test@dgu.ac.kr",
+                "skills": ["Java", "Spring Boot", "Docker", "Kubernetes", "Data Analysis"],
+                "photo": "👨‍💻",
+                "bio": "확장 가능하고 안정적인 백엔드 시스템 구축을 담당하고 있습니다.",
+                "github": "github.com/**"
+            },
+            4: {
+                "id": 4,
+                "name": "김태훈",
+                "role": "팀원",
+                "position": "Frontend Developer & UI/UX Designer",
+                "department": "산업시스템공학과",
+                "phone": "010-****",
+                "email": "test.@dgu.ac.kr",
+                "skills": ["React", "Vue.js", "UI/UX Design", "Figma", "Svelte"],
+                "photo": "👨‍💻",
+                "bio": "사용자 친화적인 인터페이스와 뛰어난 사용자 경험을 제공합니다.",
+                "github": "github.com/***"
+            }
+        };
+
+        function showMemberModal(id) {
+            const member = MEMBERS_DATA[id];
+            if (!member) return;
+            
+            // 모달 내용 업데이트
+            document.querySelector('.modal-detail').innerHTML = `
+                <p class="modal-photo">${member.photo}</p>
+                <h3>${member.name}</h3>
+                <p><span>${member.role}</span> / <span>${member.position}</span></p>
+                
+                <div class="modal-contact-info">
+                    <p><span class="detail-label">소속</span>${member.department}</p>
+                    <p><span class="detail-label">연락처</span>${member.phone}</p>
+                    <p><span class="detail-label">이메일</span>${member.email}</p>
+                    <p><span class="detail-label">GitHub</span><a href="https://${member.github}" target="_blank">${member.github}</a></p>
+                </div>
+
+                <p class="modal-bio">${member.bio}</p>
+                
+                <div class="skills modal-skills">
+                    ${member.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
+                </div>
+            `;
+            
+            document.getElementById('memberModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('memberModal').style.display = 'none';
+        }
+
+        // 모달 외부 클릭/ESC 키 이벤트
+        window.onclick = (e) => {
+            if (e.target == memberModal) closeModal();
+        };
+        window.onkeydown = (e) => {
+            if (e.key === 'Escape') closeModal();
+        };
+    </script>
+</body>
+</html>
