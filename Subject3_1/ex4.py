@@ -21,6 +21,8 @@ class BasicMember(TeamMember):
             result['name'] = data['name']
         if 'student_number' in data:
             result['student_number'] = data['student_number']
+        if 'email' in data:
+            result['email'] = data['email']    
         return result
 
 class Member1(TeamMember):
