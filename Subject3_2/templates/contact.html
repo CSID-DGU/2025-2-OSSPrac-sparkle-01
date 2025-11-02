@@ -343,14 +343,14 @@
     </div>
     
     <script>
-        // 폼 제출 애니메이션
+        // 폼 제출 과정 애니메이션
         document.querySelector('form').addEventListener('submit', function(e) {
             const button = this.querySelector('button');
             button.innerHTML = '전송 중...';
             button.style.opacity = '0.7';
         });
         
-        // Alert 자동 숨김
+        // Alert 자동으로 숨기기
         setTimeout(function() {
             const alerts = document.querySelectorAll('.alert');
             alerts.forEach(alert => {
