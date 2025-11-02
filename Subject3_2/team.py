@@ -34,7 +34,7 @@ def contact():
         flash('메시지가 성공적으로 전송되었습니다!', 'success')
         return redirect(url_for('contact'))
     
-    return render_template('contact.html')
+    return render_template('contact.html', team={"name": "Sparkle"})
 
 @app.route('/result', methods=['POST'])
 def result():
