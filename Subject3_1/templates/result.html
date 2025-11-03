@@ -4,90 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .result-container {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #333;
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background-color: #f8f8f8;
-            font-weight: bold;
-            width: 35%;
-        }
-        td {
-            background-color: white;
-        }
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 3px;
-        }
-        .back-link:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result_style.css') }}">
 </head>
 <body>
-    <div class="result-container">
-        <h2>입력한 정보</h2>
-        <table>
-            <tr>
-                <th>Name</th>
-                <td>{{ data.name }}</td>
-            </tr>
-            <tr>
-                <th>Student Number</th>
-                <td>{{ data.student_number }}</td>
-            </tr>
-            <tr>
-                <th>Gender</th>
-                <td>{{ data.gender }}</td>
-            </tr>
-            <tr>
-                <th>Major</th>
-                <td>{{ data.major }}</td>
-            </tr>
-            <tr>
-                <th>Field</th>
-                <td>{{ data.field }}</td>
-            </tr>
-            <tr>
-                <th>Programming Languages</th>
-                <td>{{ data.languages }}</td>
-            </tr>
-            <tr>
-                <th>Framework</th>
-                <td>{{ data.framework }}</td>
-            </tr>
-        </table>
-        <a href="/" class="back-link">다시 입력하기</a>
+<div class="wrap">
+    <div class="card">
+        <div class="header">
+            <h1 class="title">입력한 정보</h1>
+            <p class="subtitle">제출한 폼 내용이예요.</p>
+        </div>
+
+        <div class="content">
+            <table>
+                <tbody>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ data.name or '—' }}</td>
+                </tr>
+                <tr>
+                    <th>Student Number</th>
+                    <td>{{ data.student_number or '—' }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ data.email or '—' }}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>{{ data.gender or '—' }}</td>
+                </tr>
+                <tr>
+                    <th>Major</th>
+                    <td>{{ data.major or '—' }}</td>
+                </tr>
+                <tr>
+                    <th>Field</th>
+                    <td>{{ data.field or '—' }}</td>
+                </tr>
+
+                {% set langs = data.languages if (data.languages is iterable and data.languages is not string) else ([data.languages] if data.languages else []) %}
+                <tr>
+                    <th>Programming Languages</th>
+                    <td>
+                        {% if langs and langs|length > 0 %}
+                            <ul class="chips">
+                                {% for lang in langs %}
+                                    <li class="chip">{{ lang }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span class="empty">—</span>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                {% set fws = data.framework if (data.framework is iterable and data.framework is not string) else ([data.framework] if data.framework else []) %}
+                <tr>
+                    <th>Framework</th>
+                    <td>
+                        {% if fws and fws|length > 0 %}
+                            <ul class="chips">
+                                {% for fw in fws %}
+                                    <li class="chip">{{ fw }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span class="empty">—</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <a href="/" class="back">다시 입력하기</a>
+            <a href="/" class="back ghost">홈으로</a>
+        </div>
     </div>
+</div>
 </body>
 </html>
