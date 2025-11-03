@@ -26,6 +26,7 @@ def contact():
         message = {
             'name': request.form.get('name'),
             'email': request.form.get('email'),
+            'affiliation': request.form.get('affiliation'),
             'subject': request.form.get('subject'),
             'message': request.form.get('message'),
             'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
