@@ -1,111 +1,125 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Form</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/input_style.css') }}">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Input Form</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/input_style.css') }}">
 </head>
 <body>
-    <form action="/result" method="POST">
-        <div class="form-group">
-            <label for="name">Name<span class="highlight"> *</span></label>
+  <div class="wrap">
+    <div class="card">
+      <div class="header">
+        <h1 class="title">기본 정보 입력</h1>
+        <p class="subtitle">별표(<span class="highlight">*</span>)는 필수 항목이에요.</p>
+      </div>
+
+      <div class="content">
+        <form action="/result" method="POST" novalidate>
+          <div class="form-group">
+            <label for="name">Name <span class="highlight">*</span></label>
             <input type="text" id="name" name="name" placeholder="김동국" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="student_number">Student Number<span class="highlight"> *</span></label>
+            <small class="help">실명으로 입력해주세요.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="student_number">Student Number <span class="highlight">*</span></label>
             <input type="text" id="student_number" name="student_number" placeholder="2020xxxx" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="email">Email<span class="highlight"> *</span></label>
-            <input type="text" id="email" name="email" placeholder="xxxxxx@dgu.ac.kr" required> 
-            <br>
-            <button class="Email_Verification" type="button">Verify Email</button>
-        </div>
+          </div>
 
-        <div class="form-group">
-            <label>Gender<span class="highlight"> *</span></label>
-            <div class="radio-group">
-                <label>
-                    <input type="radio" name="gender" value="Male"> Male
-                </label>
-                <label>
-                    <input type="radio" name="gender" value="Female" checked> Female
-                </label>
+          <div class="form-group">
+            <label for="email">Email <span class="highlight">*</span></label>
+            <div class="row">
+              <input type="email" id="email" name="email" placeholder="xxxxxx@dgu.ac.kr" required>
+              <button class="btn btn-ghost Email_Verification" type="button">Verify Email</button>
             </div>
-        </div>
-        
-        <div class="form-group">
-            <label for="major">Major<span class="highlight"> *</span></label>
+          </div>
+
+          <div class="form-group">
+            <label>Gender <span class="highlight">*</span></label>
+            <div class="choice-group">
+              <label class="choice">
+                <input type="radio" name="gender" value="Male"> <span>Male</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="gender" value="Female" checked> <span>Female</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="major">Major <span class="highlight">*</span></label>
             <input type="text" id="major" name="major" placeholder="융합소프트웨어" required>
-        </div>
-        
-        <div class="form-group"> <!--Field 추가-->
-            <label for="field">Field<span class="highlight"> *</span></label>
-            <select id="field" name="field">
-                <option value="선택안함">선택하세요</option>
-                <option value="AI/Data Engineering">AI/Data Engineering</option>
-                <option value="DevOps/SRE">DevOps/SRE</option>
-                <option value="Fintech">Fintech</option>
-                <option value="Network/Security">Network/Security</option>
-                <option value="Server/Cloud">Server/Cloud</option>
-                <option value="Web Frontend">Web Frontend</option>
-                <option value="Web Backend">Web Backend</option>
+          </div>
+
+          <div class="form-group">
+            <label for="field">Field <span class="highlight">*</span></label>
+            <select id="field" name="field" required>
+              <option value="선택안함">선택하세요</option>
+              <option value="AI/Data Engineering">AI/Data Engineering</option>
+              <option value="DevOps/SRE">DevOps/SRE</option>
+              <option value="Fintech">Fintech</option>
+              <option value="Network/Security">Network/Security</option>
+              <option value="Server/Cloud">Server/Cloud</option>
+              <option value="Web Frontend">Web Frontend</option>
+              <option value="Web Backend">Web Backend</option>
             </select>
-        </div>
+          </div>
 
-        <div class="form-group">
+          <div class="form-group">
             <label>Programming Languages</label>
-            <div class="checkbox-group">
-                <label>
-                    <input type="checkbox" name="languages" value="Python" checked> Python
-                </label>
-                <label>
-                    <input type="checkbox" name="languages" value="Java"> Java
-                </label>
-                <label>
-                    <input type="checkbox" name="languages" value="HTML"> HTML
-                </label>
-                <label>
-                    <input type="checkbox" name="languages" value="C++" checked> C++
-                </label>
+            <div class="choice-group">
+              <label class="choice">
+                <input type="checkbox" name="languages" value="Python" checked> <span>Python</span>
+              </label>
+              <label class="choice">
+                <input type="checkbox" name="languages" value="Java"> <span>Java</span>
+              </label>
+              <label class="choice">
+                <input type="checkbox" name="languages" value="HTML"> <span>HTML</span>
+              </label>
+              <label class="choice">
+                <input type="checkbox" name="languages" value="C++" checked> <span>C++</span>
+              </label>
             </div>
-        </div>
+          </div>
 
-        <div class="form-group"> <!--프레임워크 추가-->
+          <div class="form-group">
             <label>Framework</label>
-            <div class="checkbox-group">
-                <label>
-                    <input type="checkbox" name="framework" value="Spring Boot" > Spring Boot
-                </label>
-                <label>
-                    <input type="checkbox" name="framework" value="Django"> Django
-                </label>
-                <label>
-                    <input type="checkbox" name="framework" value="React"> React
-                </label>
-                <label>
-                    <input type="checkbox" name="framework" value="Vue" > Vue
-                </label>
-                <label>
-                    <input type="checkbox" name="framework" value="TensorFlow" > TensorFlow
-                </label>
-                <label>
-                    <input type="checkbox" name="framework" value="PyTorch" > PyTorch
-                </label>
+            <div class="choice-group">
+              <label class="choice">
+                <input type="checkbox" name="framework" value="Spring Boot"> <span>Spring Boot</span>
+              </label>
+              <label class="choice">
+                <input type="checkbox" name="framework" value="Django"> <span>Django</span>
+              </label>
+              <label class="choice">
+                <input type="checkbox" name="framework" value="React"> <span>React</span>
+              </label>
+              <label class="choice">
+                <input type="checkbox" name="framework" value="Vue"> <span>Vue</span>
+              </label>
+              <label class="choice">
+                <input type="checkbox" name="framework" value="TensorFlow"> <span>TensorFlow</span>
+              </label>
+              <label class="choice">
+                <input type="checkbox" name="framework" value="PyTorch"> <span>PyTorch</span>
+              </label>
             </div>
-        </div>
-        
-        <button type="submit">submit</button>
-    </form>
+          </div>
 
-    <footer style="text-align: center; margin-top: 50px; color: #555;">
+          <div class="form-actions">
+            <button type="submit" class="btn">submit</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="footer">
         <p>&copy; 2025 Sparkle. All rights reserved.</p>
         <p class="footer-copyright-sub">Made by Sparkle team</p>
-    </footer>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
