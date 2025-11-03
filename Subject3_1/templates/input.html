@@ -30,10 +30,12 @@
 
           <div class="form-group">
             <label for="email">Email <span class="highlight">*</span></label>
+            <input type="checkbox" id="email-verify-check" class="email-verify-checkbox">
             <div class="row">
               <input type="email" id="email" name="email" placeholder="xxxxxx@dgu.ac.kr" required>
-              <button class="btn btn-ghost Email_Verification" type="button">Verify Email</button>
+              <label for="email-verify-check" class="btn btn-ghost Email_Verification">Verify Email</label>
             </div>
+            <small class="email-message">✓ 사용 가능한 이메일입니다.</small>
           </div>
 
           <div class="form-group">
