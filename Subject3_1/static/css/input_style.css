@@ -128,7 +128,6 @@ select:focus{
   border-radius:999px;
   border:1px solid #e2e8f0;
   cursor:pointer;
-  user-select:none;
   transition:.16s transform, .16s background;
 }
 .choice:hover{ transform:translateY(-1px); }
@@ -168,14 +167,17 @@ select:focus{
   padding: 8px 14px;
   font-size: 13px;  
 }
-input:required:invalid,
-select:required:invalid{
-}
 
-input.error, select.error{
-  border-color:#fecaca;
-  box-shadow:0 0 0 4px rgba(239,68,68,.12);
+input.success {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);
 }
+input.error {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+
+.success-text { color: var(--accent-2); }
+.error-text { color: var(--danger); }
 
 .email-verify-checkbox {
   display: none;
@@ -184,18 +186,8 @@ input.error, select.error{
 .email-message {
   display: none;
   margin-top: 8px;
-  color: var(--accent-2);
   font-size: 13px;
   font-weight: 500;
-}
-
-#email-verify-check:checked ~ .row ~ .email-message {
-  display: block;
-}
-
-#email-verify-check:checked ~ .row #email {
-  border-color: var(--accent-2);
-  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);
 }
 
 @media (max-width:560px){

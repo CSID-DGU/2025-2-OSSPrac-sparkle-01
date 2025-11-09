@@ -7,6 +7,93 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/input_style.css') }}">
 </head>
+<script>
+  function validateEmail(email) {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return pattern.test(email);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const verifyBtn = document.querySelector(".Email_Verification");
+    const emailInput = document.getElementById("email");
+    const message = document.querySelector(".email-message");
+
+    const nameInput = document.getElementById("name");
+    const nameHelp  = document.getElementById("name-help");
+    const namePattern = /^[A-Za-z가-힣\s]+$/;
+
+    nameInput.addEventListener("input", (e) => {
+      const v = e.target.value;
+
+      if (v.length === 0) {
+        nameHelp.textContent = "실명으로 입력해주세요.";
+        nameHelp.classList.remove("error-text");
+        nameInput.classList.remove("error");
+        return;
+      }
+
+      if (!namePattern.test(v)) {
+        nameHelp.textContent = "이름은 한글 또는 영문만 입력할 수 있습니다.";
+        nameHelp.classList.add("error-text");
+        nameInput.classList.add("error");
+      } else {
+        nameHelp.textContent = "실명으로 입력해주세요.";
+        nameHelp.classList.remove("error-text");
+        nameInput.classList.remove("error");
+      }
+    });
+
+    const studentInput = document.getElementById("student_number");
+    const numberError = document.querySelector(".number-error-message");
+
+    studentInput.addEventListener("input", (e) => {
+      const hasNonNumber = /\D/.test(e.target.value);
+
+      if (hasNonNumber) {
+        numberError.style.display = "block";
+        studentInput.classList.add("error");
+      } else {
+        numberError.style.display = "none";
+        studentInput.classList.remove("error");
+      }
+    });
+
+    verifyBtn.addEventListener("click", () => {
+      const email = emailInput.value.trim();
+
+      if (!email.includes("@")) {
+        showError("✗ 이메일에 @ 기호가 없습니다.");
+      } 
+      else if (!email.includes(".")) {
+        showError("✗ @ 뒤에 도메인(.com / .ac.kr 등)이 있어야 합니다.");
+      } 
+      else if (!validateEmail(email)) {
+        showError("✗ 이메일 형식이 올바르지 않습니다. 예) abc@naver.com");
+      }
+      else {
+        showSuccess("✓ 사용 가능한 이메일입니다.");
+      }
+
+      message.style.display = "block";
+    });
+
+    function showError(text) {
+      message.textContent = text;
+      message.classList.remove("success-text");
+      message.classList.add("error-text");
+      emailInput.classList.add("error");
+      emailInput.classList.remove("success");
+    }
+
+    function showSuccess(text) {
+      message.textContent = text;
+      message.classList.remove("error-text");
+      message.classList.add("success-text");
+      emailInput.classList.remove("error");
+      emailInput.classList.add("success");
+    }
+  });
+</script>
 <body>
   <div class="wrap">
     <div class="card">
@@ -16,16 +103,34 @@
       </div>
 
       <div class="content">
-        <form action="/result" method="POST" novalidate>
+        <form action="/result" method="POST">
           <div class="form-group">
             <label for="name">Name <span class="highlight">*</span></label>
-            <input type="text" id="name" name="name" placeholder="김동국" required>
-            <small class="help">실명으로 입력해주세요.</small>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="김동국"
+              required
+            >
+            <small id="name-help" class="help">실명으로 입력해주세요.</small>
           </div>
 
           <div class="form-group">
             <label for="student_number">Student Number <span class="highlight">*</span></label>
-            <input type="text" id="student_number" name="student_number" placeholder="2020xxxx" required>
+            <input
+              type="text"
+              id="student_number"
+              name="student_number"
+              placeholder="2020xxxx"
+              required
+              inputmode="numeric" 
+              pattern="^\d+$"    
+              title="숫자만 입력하세요 (0-9)" 
+            >
+            <small class="number-error-message" style="display:none; color:var(--danger); font-size:12px;">
+              ✗ 숫자만 입력할 수 있습니다.
+            </small>
           </div>
 
           <div class="form-group">
