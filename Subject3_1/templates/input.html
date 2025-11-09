@@ -81,8 +81,16 @@
         <form action="/result" method="POST">
           <div class="form-group">
             <label for="name">Name <span class="highlight">*</span></label>
-            <input type="text" id="name" name="name" placeholder="김동국" required>
-            <small class="help">실명으로 입력해주세요.</small>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="김동국"
+              required
+            >
+            <small class="name-error-message" style="display:none; color:var(--danger); font-size:12px;">
+              ✗ 이름은 한글 또는 영문만 입력할 수 있습니다.
+            </small>
           </div>
 
           <div class="form-group">
