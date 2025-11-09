@@ -18,6 +18,31 @@
     const emailInput = document.getElementById("email");
     const message = document.querySelector(".email-message");
 
+    const nameInput = document.getElementById("name");
+    const nameHelp  = document.getElementById("name-help");
+    const namePattern = /^[A-Za-z가-힣\s]+$/;
+
+    nameInput.addEventListener("input", (e) => {
+      const v = e.target.value;
+
+      if (v.length === 0) {
+        nameHelp.textContent = "실명으로 입력해주세요.";
+        nameHelp.classList.remove("error-text");
+        nameInput.classList.remove("error");
+        return;
+      }
+
+      if (!namePattern.test(v)) {
+        nameHelp.textContent = "이름은 한글 또는 영문만 입력할 수 있습니다.";
+        nameHelp.classList.add("error-text");
+        nameInput.classList.add("error");
+      } else {
+        nameHelp.textContent = "실명으로 입력해주세요.";
+        nameHelp.classList.remove("error-text");
+        nameInput.classList.remove("error");
+      }
+    });
+
     const studentInput = document.getElementById("student_number");
     const numberError = document.querySelector(".number-error-message");
 
@@ -88,9 +113,7 @@
               placeholder="김동국"
               required
             >
-            <small class="name-error-message" style="display:none; color:var(--danger); font-size:12px;">
-              ✗ 이름은 한글 또는 영문만 입력할 수 있습니다.
-            </small>
+            <small id="name-help" class="help">실명으로 입력해주세요.</small>
           </div>
 
           <div class="form-group">
