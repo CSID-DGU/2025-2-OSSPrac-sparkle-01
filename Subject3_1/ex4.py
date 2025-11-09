@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import re
 
 app = Flask(__name__)
 
@@ -40,7 +41,7 @@ class Member2(TeamMember):
         result = {}
         # data는 request.form 이 들어오므로 getlist 사용 가능
         languages = data.getlist('languages')
-        result['languages'] = ', '.join(languages) if languages else 'None'
+        result['languages'] = languages if languages else []
         return result
 class Member3(TeamMember):
     """팀원3 - Field, Framework 처리"""
@@ -48,7 +49,7 @@ class Member3(TeamMember):
         result = {}
         result['field'] = data.get('field', '선택안함')
         framework = data.getlist('framework')
-        result['framework'] = ', '.join(framework) if framework else 'None'
+        result['framework'] = framework if framework else[]
         return result
 
 # 팀원 인스턴스 생성
@@ -67,6 +68,21 @@ def input_page():
 @app.route('/result', methods=['POST'])
 def result_page():
     """결과 페이지 렌더링"""
+    # 입력 필터(검증)
+    name = request.form.get('name', '')
+    student_number = request.form.get('student_number', '')
+    email = request.form.get('email', '')
+    major = request.form.get('major', '')
+
+    if not re.match(r'^[A-Za-z가-힣\s]+$', name):
+        return "Invalid input: name", 400
+    if not re.match(r'^\d+$', student_number):
+        return "Invalid input: student_number", 400
+    if not re.match(r'^[^\s@]+@[^\s@]+\.[^\s@]+$', email):
+        return "Invalid input: email", 400
+    if major == '':
+        return "Invalid input: major", 400
+
     all_results = {}
     
     # 리더(기존 basic) 처리
@@ -88,4 +104,4 @@ def result_page():
     return render_template('result.html', data=all_results)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    app.run(debug=True, host='127.0.0.1', port=9929)#무조건 5000으로 바꿔놓기 
