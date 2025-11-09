@@ -7,6 +7,40 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/input_style.css') }}">
 </head>
+<script>
+  function validateEmail(email) {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return pattern.test(email);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const verifyBtn = document.querySelector(".Email_Verification");
+    const emailInput = document.getElementById("email");
+    const message = document.querySelector(".email-message");
+
+    verifyBtn.addEventListener("click", () => {
+      const email = emailInput.value.trim();
+
+      if (validateEmail(email)) {
+        // 정상 이메일
+        message.textContent = "✓ 사용 가능한 이메일입니다.";
+        message.classList.remove("error-text");
+        message.classList.add("success-text");
+        emailInput.classList.remove("error");
+        emailInput.classList.add("success");
+      } else {
+        // 잘못된 이메일
+        message.textContent = "✗ 이메일 형식이 올바르지 않습니다.";
+        message.classList.remove("success-text");
+        message.classList.add("error-text");
+        emailInput.classList.add("error");
+        emailInput.classList.remove("success");
+      }
+
+      message.style.display = "block";
+    });
+  });
+</script>
 <body>
   <div class="wrap">
     <div class="card">

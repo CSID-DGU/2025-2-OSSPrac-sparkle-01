@@ -169,6 +169,24 @@ select:focus{
   font-size: 13px;  
 }
 
+input.success {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);
+}
+
+input.error {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+}
+
+.success-text {
+  color: var(--accent-2);
+}
+
+.error-text {
+  color: var(--danger);
+}
+
 input.error,
 select.error {
   border-color: #fecaca;
