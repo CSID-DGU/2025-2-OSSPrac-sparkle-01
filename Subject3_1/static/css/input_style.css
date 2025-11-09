@@ -128,7 +128,6 @@ select:focus{
   border-radius:999px;
   border:1px solid #e2e8f0;
   cursor:pointer;
-  user-select:none;
   transition:.16s transform, .16s background;
 }
 .choice:hover{ transform:translateY(-1px); }
