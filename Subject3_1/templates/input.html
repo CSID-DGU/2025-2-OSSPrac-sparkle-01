@@ -18,6 +18,21 @@
     const emailInput = document.getElementById("email");
     const message = document.querySelector(".email-message");
 
+    const studentInput = document.getElementById("student_number");
+    const numberError = document.querySelector(".number-error-message");
+
+    studentInput.addEventListener("input", (e) => {
+      const hasNonNumber = /\D/.test(e.target.value);
+
+      if (hasNonNumber) {
+        numberError.style.display = "block";
+        studentInput.classList.add("error");
+      } else {
+        numberError.style.display = "none";
+        studentInput.classList.remove("error");
+      }
+    });
+
     verifyBtn.addEventListener("click", () => {
       const email = emailInput.value.trim();
 
@@ -72,7 +87,19 @@
 
           <div class="form-group">
             <label for="student_number">Student Number <span class="highlight">*</span></label>
-            <input type="text" id="student_number" name="student_number" placeholder="2020xxxx" required>
+            <input
+              type="text"
+              id="student_number"
+              name="student_number"
+              placeholder="2020xxxx"
+              required
+              inputmode="numeric" 
+              pattern="^\d+$"    
+              title="숫자만 입력하세요 (0-9)" 
+            >
+            <small class="number-error-message" style="display:none; color:var(--danger); font-size:12px;">
+              ✗ 숫자만 입력할 수 있습니다.
+            </small>
           </div>
 
           <div class="form-group">
