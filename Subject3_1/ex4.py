@@ -40,7 +40,7 @@ class Member2(TeamMember):
         result = {}
         # data는 request.form 이 들어오므로 getlist 사용 가능
         languages = data.getlist('languages')
-        result['languages'] = ', '.join(languages) if languages else 'None'
+        result['languages'] = languages if languages else []
         return result
 class Member3(TeamMember):
     """팀원3 - Field, Framework 처리"""
@@ -48,7 +48,7 @@ class Member3(TeamMember):
         result = {}
         result['field'] = data.get('field', '선택안함')
         framework = data.getlist('framework')
-        result['framework'] = ', '.join(framework) if framework else 'None'
+        result['framework'] = framework if framework else[]
         return result
 
 # 팀원 인스턴스 생성
@@ -88,4 +88,4 @@ def result_page():
     return render_template('result.html', data=all_results)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    app.run(debug=True, host='127.0.0.1', port=9929)#무조건 5000으로 바꿔놓기 
