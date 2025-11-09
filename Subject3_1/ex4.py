@@ -34,37 +34,21 @@ class Member1(TeamMember):
         if 'major' in data:
             result['major'] = data['major']
         return result
-
 class Member2(TeamMember):
     """팀원2 - Programming Languages 처리"""
     def process_data(self, data):
         result = {}
-
-        # Programming Languages (체크박스 다중 선택)
-        languages = request.form.getlist('languages')
-        if languages:
-            result['languages'] = ', '.join(languages)
-        else:
-            result['languages'] = 'None'
-
+        # data는 request.form 이 들어오므로 getlist 사용 가능
+        languages = data.getlist('languages')
+        result['languages'] = ', '.join(languages) if languages else 'None'
         return result
-
 class Member3(TeamMember):
     """팀원3 - Field, Framework 처리"""
     def process_data(self, data):
         result = {}
-
-        # Field (선택형)
-        field = data.get('field', '선택안함')
-        result['field'] = field
-
-        # Framework (체크박스 다중 선택)
-        framework = request.form.getlist('framework')
-        if framework:
-            result['framework'] = ', '.join(framework)
-        else:
-            result['framework'] = 'None'
-
+        result['field'] = data.get('field', '선택안함')
+        framework = data.getlist('framework')
+        result['framework'] = ', '.join(framework) if framework else 'None'
         return result
 
 # 팀원 인스턴스 생성

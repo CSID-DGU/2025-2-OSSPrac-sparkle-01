@@ -2,9 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'  # Flash message 용도, 로컬은 의미 없으니 참고.
 
-# 메시지 저장용 리스트 (실제로는 데이터베이스 사용)
+# 메시지 저장용 리스트
 messages = []
 
 @app.route('/')
