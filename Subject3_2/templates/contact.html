@@ -140,6 +140,10 @@
                 setTimeout(() => alert.remove(), 500);
             });
         }, 5000);
+        // 등록 완료 후 5초 뒤에 자동으로 메인 페이지로 이동 옵션
+        setTimeout(() => {
+             window.location.href = '/index';
+         }, 5000);
     </script>
 </body>
 </html>

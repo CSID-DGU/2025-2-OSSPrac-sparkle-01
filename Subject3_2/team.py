@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from datetime import datetime
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'team-sparkle-secret-key' #실제 운영환경에서는 .env로 운영해야하니 참고바랍니다.
 
 # 메시지 저장용 리스트
 messages = []
