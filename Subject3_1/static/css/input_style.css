@@ -169,12 +169,10 @@ select:focus{
   font-size: 13px;  
 }
 
-input:required:invalid,
-select:required:invalid{
-}
-input.error, select.error{
-  border-color:#fecaca;
-  box-shadow:0 0 0 4px rgba(239,68,68,.12);
+input.error,
+select.error {
+  border-color: #fecaca;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
 }
 
 .email-verify-checkbox {
