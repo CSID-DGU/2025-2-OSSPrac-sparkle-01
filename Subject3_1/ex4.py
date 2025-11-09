@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import re
 
 app = Flask(__name__)
 
@@ -67,6 +68,21 @@ def input_page():
 @app.route('/result', methods=['POST'])
 def result_page():
     """결과 페이지 렌더링"""
+    # 입력 필터(검증)
+    name = request.form.get('name', '')
+    student_number = request.form.get('student_number', '')
+    email = request.form.get('email', '')
+    major = request.form.get('major', '')
+
+    if not re.match(r'^[A-Za-z가-힣\s]+$', name):
+        return "Invalid input: name", 400
+    if not re.match(r'^\d+$', student_number):
+        return "Invalid input: student_number", 400
+    if not re.match(r'^[^\s@]+@[^\s@]+\.[^\s@]+$', email):
+        return "Invalid input: email", 400
+    if major == '':
+        return "Invalid input: major", 400
+
     all_results = {}
     
     # 리더(기존 basic) 처리
