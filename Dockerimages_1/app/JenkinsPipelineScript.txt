@@ -1,36 +1,44 @@
-pipeline {
-    agent any
+pipeline { 
+    agent any 
+    
+    triggers { pollSCM('H/5 * * * *') } 
 
-    stages {
-        stage('Clone') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/CSID-DGU/2025-2-OSSPrac-sparkle-01.git'
-            }
-        }
+    environment { 
+        DOCKER = credentials('docker-hub') 
+        GIT_REPO = 'https://github.com/CSID-DGU/2025-2-OSSPrac-sparkle-01.git' 
+        BRANCH = 'main' 
+        IMG_NAME = 'johyerim06/app' 
+        IMG_TAG = 'latest' 
+        BUILD_DIR = 'Dockerimages_1/app' 
+        } 
 
-        stage('Build Image') {
-            steps {
-                dir('Dockerimages_1/app') {
-                    sh 'docker build -t johyerim06/app:latest .'
-                }
-            }
-        }
+    stages { 
+        stage('Clone') { 
+            steps { 
+                git branch: BRANCH, url: GIT_REPO 
+            } 
+        } 
 
-        stage('DockerHub Login') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PW')]) {
-                    sh '''
-                        echo $DOCKER_PW | docker login -u $DOCKER_USER --password-stdin
-                    '''
-                }
-            }
-        }
+        stage('Build Image') { 
+            steps { 
+                dir(BUILD_DIR) { 
+                    sh 'docker build -t ${IMG_NAME}:${IMG_TAG} .'                    
+                } 
+            } 
+        } 
 
-        stage('Push Image') {
-            steps {
-                sh 'docker push johyerim06/app:latest'
-            }
-        }
-    }
+        stage('DockerHub Login') { 
+            steps { 
+                sh ''' 
+                    echo $DOCKER_PSW | docker login -u $DOCKER_USR --password-stdin 
+                ''' 
+            } 
+        } 
+        
+        stage('Push Image') { 
+            steps { 
+                sh 'docker push ${IMG_NAME}:${IMG_TAG}' 
+            } 
+        } 
+    } 
 }
