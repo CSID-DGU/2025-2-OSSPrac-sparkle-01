@@ -63,4 +63,4 @@ def result():
     return render_template('result.html', member=new_member)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=5001)
+    app.run(debug=True, host='127.0.0.1', port=5001) # 전체 공개 시 host는 0.0.0.0
