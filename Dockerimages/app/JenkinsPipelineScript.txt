@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     triggers {
-            pollSCM('H/5 * * * *')
+            pollSCM('H/3 * * * *')
     }
 
     environment {
-        DOCKER     = credentials('docker-hub')
+        DOCKER     = credentials('dockerhub')
         GIT_REPO   = 'https://github.com/CSID-DGU/2025-2-OSSPrac-sparkle-01.git'
         BRANCH     = 'main'
-        IMG_NAME   = 'johyerim06/app'
+        IMG_NAME   = 'seojunjng/app'
         IMG_TAG    = 'latest'
         BUILD_DIR  = 'Dockerimages_1/app'        
     }
@@ -24,16 +24,15 @@ pipeline {
         stage('Build Image') {
             steps {
                 dir(BUILD_DIR) {
-                    sh 'docker build -t ${IMG_NAME}:${IMG_TAG} .'                
+                    sh 'docker build -t ${IMG_NAME}:${IMG_TAG} .'
                 }
             }
         }
 
         stage('DockerHub Login') {
             steps {
-                   sh '''
-                        echo $DOCKER_PSW | docker login -u $DOCKER_USR --password-stdin
-                    '''
+                sh 'echo $DOCKER_PSW | docker login -u $DOCKER_USR --password-stdin'
+                }
             }
         }
 
@@ -43,4 +42,4 @@ pipeline {
             }
         }
     }
-}
+    
