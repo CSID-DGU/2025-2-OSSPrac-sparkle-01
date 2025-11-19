@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 팀원 추가</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/input_style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 새 팀원 추가</h1>
+            <p>우리 팀에 합류할 새로운 멤버를 등록해주세요</p>
+        </div>
+        
+        <div class="form-container">
+            <form action="/result" method="POST" id="memberForm">
+                <!-- 기본 정보 -->
+                <div class="form-group">
+                    <label for="name">이름 <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" required placeholder="홍길동">
+                </div>
+                
+                <div class="form-group">
+                    <label for="role">역할 <span class="required">*</span></label>
+                    <select id="role" name="role" required>
+                        <option value="">선택하세요</option>
+                        <option value="팀장">팀장</option>
+                        <option value="팀원">팀원</option>
+                        <option value="인턴">인턴</option>
+                        <option value="멘토">멘토</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="department">학과/소속 <span class="required">*</span></label>
+                    <input type="text" id="department" name="department" required placeholder="컴퓨터공학과">
+                </div>
+                
+                <!-- 연락처 정보 -->
+                <div class="section-divider">
+                    <h3 class="section-title">📞 연락처 정보</h3>
+                    
+                    <div class="form-group">
+                        <label for="phone">전화번호</label>
+                        <input type="tel" id="phone" name="phone" placeholder="010-1234-5678">
+                        <p class="hint">개인정보 보호를 위해 뒷자리가 자동으로 마스킹됩니다</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="email" placeholder="example@university.ac.kr">
+                        <p class="hint">개인정보 보호를 위해 일부가 자동으로 마스킹됩니다</p>
+                    </div>
+                </div>
+                
+                <!-- 추가 정보 -->
+                <div class="section-divider">
+                    <h3 class="section-title">💼 추가 정보</h3>
+                    
+                    <div class="form-group">
+                        <label for="skills">보유 기술</label>
+                        <input type="text" id="skills" name="skills" placeholder="Python, JavaScript, React">
+                        <p class="hint">쉼표로 구분하여 입력하세요</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bio">자기소개</label>
+                        <textarea id="bio" name="bio" placeholder="간단한 자기소개를 작성해주세요"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>프로필 이모지 선택</label>
+                        <div class="emoji-selector">
+                            <button type="button" class="emoji-option" data-emoji="👨‍💻">👨‍💻</button>
+                            <button type="button" class="emoji-option" data-emoji="👩‍💻">👩‍💻</button>
+                            <button type="button" class="emoji-option" data-emoji="👨‍🎓">👨‍🎓</button>
+                            <button type="button" class="emoji-option" data-emoji="👩‍🎓">👩‍🎓</button>
+                            <button type="button" class="emoji-option" data-emoji="👨‍💼">👨‍💼</button>
+                            <button type="button" class="emoji-option" data-emoji="👩‍💼">👩‍💼</button>
+                            <button type="button" class="emoji-option" data-emoji="🧑‍💻">🧑‍💻</button>
+                            <button type="button" class="emoji-option selected" data-emoji="👤">👤</button>
+                        </div>
+                        <input type="hidden" id="photo_emoji" name="photo_emoji" value="👤">
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn-secondary" onclick="resetForm()">초기화</button>
+                    <button type="submit" class="btn-primary">등록하기</button>
+                </div>
+            </form>
+            
+            <div class="back-link">
+                <a href="/index">← 메인으로 돌아가기</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 이모지 선택 기능
+        const emojiOptions = document.querySelectorAll('.emoji-option');
+        const photoEmojiInput = document.getElementById('photo_emoji');
+        
+        emojiOptions.forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.preventDefault();
+                // 모든 옵션에서 selected 클래스 제거
+                emojiOptions.forEach(opt => opt.classList.remove('selected'));
+                // 현재 선택한 옵션에 selected 클래스 추가
+                this.classList.add('selected');
+                // hidden input 값 업데이트
+                photoEmojiInput.value = this.dataset.emoji;
+            });
+        });
+        
+        // 폼 초기화 함수
+        function resetForm() {
+            if (confirm('모든 입력 내용을 초기화하시겠습니까?')) {
+                document.getElementById('memberForm').reset();
+                // 이모지 선택 초기화
+                emojiOptions.forEach(opt => opt.classList.remove('selected'));
+                document.querySelector('[data-emoji="👤"]').classList.add('selected');
+                photoEmojiInput.value = '👤';
+            }
+        }
+        
+        // 폼 제출 전 확인
+        document.getElementById('memberForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (confirm('입력한 정보로 팀원을 등록하시겠습니까?')) {
+                this.submit();
+            }
+        });
+    </script>
+</body>
+</html>

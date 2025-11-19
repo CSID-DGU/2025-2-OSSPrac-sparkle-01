@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/CSID-DGU/2025-2-OSSPrac-sparkle-01.git'
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                dir('Dockerimages_1/app') {
+                    sh 'docker build -t ohjiwon1214/app:latest .'
+                }
+            }
+        }
+
+        stage('DockerHub Login') {
+            steps {
+                withCredentials([string(credentialsId: 'dockerhub_pw', variable: 'DOCKERHUB_PW')]) {
+                    sh "echo $DOCKERHUB_PW | docker login -u ohjiwon1214 --password-stdin"
+                }
+            }
+        }
+
+        stage('Push Image') {
+            steps {
+                sh 'docker push ohjiwon1214/app:latest'
+            }
+        }
+    }
+}
