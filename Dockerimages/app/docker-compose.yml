@@ -1,0 +1,6 @@
+services:
+  app:
+    build: .
+    image: ohjiwon1214/app:latest
+    ports:
+      - "8000:8000"

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - {{ team.name }}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contact_style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="contact-header">
+            <h1>📬 Contact Us</h1>
+            <p>Sparkle 팀과 함께 멋진 프로젝트를 시작해보세요!</p>
+        </div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="contact-content">
+            <div class="contact-info">
+                <h2>연락처 정보</h2>
+                
+                <div class="info-item">
+                    <div class="info-icon">📧</div>
+                    <div class="info-content">
+                        <h3>이메일</h3>
+                        <p>teamsparkle@dgu.ac.kr</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">📱</div>
+                    <div class="info-content">
+                        <h3>전화번호</h3>
+                        <p>02-1234-5678</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <h3>위치</h3>
+                        <p>서울특별시 중구 필동로1길 30<br>3층</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">🕐</div>
+                    <div class="info-content">
+                        <h3>운영 시간</h3>
+                        <p>평일: 09:00 - 18:00<br>주말: 이메일 문의</p>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="contact-form">
+                <h2>메시지 보내기</h2>
+                
+                <form method="POST" action="/contact">
+                    <div class="form-group">
+                        <label for="name">이름 <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required placeholder="홍길동">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">이메일 <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="affiliation">소속 <span class="required">*</span></label>
+                        <select id="affiliation" name="affiliation" required>
+                            <option value="">선택하세요</option>
+                            <option value="University / Academic Institution">대학교/교육기관</option>
+                            <option value="Company">기업</option>
+                            <option value="Entrepreneur">창업가</option>
+                            <option value="Freelancer">프리랜서</option>
+                            <option value="Government Organization">정부기관</option>
+                            <option value="Individual">개인</option>
+                            <option value="Investor">투자자</option>
+                            <option value="Media">미디어</option>
+                            <option value="NGO">비영리단체(NGO)</option>
+                            <option value="Partner">파트너</option>
+                            <option value="Research Institute / R&D Center">연구소/연구개발센터</option>
+                            <option value="Student">학생</option>
+                            <option value="etc">기타</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">제목 <span class="required">*</span></label>
+                        <select id="subject" name="subject" required>
+                            <option value="">선택하세요</option>
+                            <option value="프로젝트 문의">프로젝트 문의</option>
+                            <option value="협업 제안">협업 제안</option>
+                            <option value="채용 문의">채용 문의</option>
+                            <option value="기술 지원">기술 지원</option>
+                            <option value="기타">기타</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">메시지 <span class="required">*</span></label>
+                        <textarea id="message" name="message" required placeholder="문의하실 내용을 작성해주세요"></textarea>
+                    </div>
+                    
+                    <button type="submit">메시지 전송</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="back-link">
+            <a href="/index">← 메인으로 돌아가기</a>
+        </div>
+    </div>
+    
+    <script>
+        // 폼 제출 과정 애니메이션
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const button = this.querySelector('button');
+            button.innerHTML = '전송 중...';
+            button.style.opacity = '0.7';
+        });
+        
+        // Alert 자동으로 숨기기
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                alert.style.transition = 'opacity 0.5s';
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 5000);
+        // 등록 완료 후 5초 뒤에 자동으로 메인 페이지로 이동 옵션
+        setTimeout(() => {
+             window.location.href = '/index';
+         }, 5000);
+    </script>
+</body>
+</html>

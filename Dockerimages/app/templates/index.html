@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkle - 팀 소개</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index_style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Sparkle</div>
+            <ul class="nav-links">
+                <li><a href="/index">홈</a></li>
+                <li><a href="/input">팀원 추가</a></li>
+                <li><a href="/contact">연락하기</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- 팀 소개 -->
+        <section class="hero">
+            <h1>Sparkle</h1>
+            <p class="motto">"혁신을 통한 미래 창조"</p>
+            <p class="hero-since">Since 2025.09.18</p>
+        </section>
+        
+        <!-- 팀원 소개 -->
+        <section class="team-section">
+            <h2 class="section-title">팀 소개</h2>
+            
+            <!-- 팀장 -->
+            <div class="leader-container">
+                <div class="leader-card" onclick="showMemberModal(1)">
+                    <div class="member-photo">👨‍💻</div>
+                    <h3 class="member-name">오지원</h3>
+                    <p class="member-role">팀장</p>
+                    <p class="member-position">Project Manager & IT Specialist</p>
+                    <p class="member-department">융합보안학과</p>
+                    <div class="skills">
+                        <span class="skill-tag">Network Security</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Penetration Testing</span>
+                        <span class="skill-tag">Solution Development</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 구분선 -->
+            <div class="members-divider">
+                <span>팀원</span>
+            </div>
+            
+            <!-- 팀원들 -->
+            <div class="members-grid">
+                <!-- 팀원 1 -->
+                <div class="member-card" onclick="showMemberModal(2)">
+                    <div class="member-photo">👩‍💻</div>
+                    <h3 class="member-name">조혜림</h3>
+                    <p class="member-role">팀원</p>
+                    <p class="member-position">AI Developer</p>
+                    <p class="member-department">융합보안학과</p>
+                    <div class="skills">
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">HuggingFace</span>
+                    </div>
+                </div>
+                
+                <!-- 팀원 2 -->
+                <div class="member-card" onclick="showMemberModal(3)">
+                    <div class="member-photo">👨‍💻</div>
+                    <h3 class="member-name">장서준</h3>
+                    <p class="member-role">팀원</p>
+                    <p class="member-position">Backend Developer</p>
+                    <p class="member-department">국제통상학과</p>
+                    <div class="skills">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">Docker</span>
+                    </div>
+                </div>
+                
+                <!-- 팀원 3 -->
+                <div class="member-card" onclick="showMemberModal(4)">
+                    <div class="member-photo">👨‍💻</div>
+                    <h3 class="member-name">김태훈</h3>
+                    <p class="member-role">팀원</p>
+                    <p class="member-position">Backend & Server Developer</p>
+                    <p class="member-department">산업시스템공학과</p>
+                    <div class="skills">
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Linux</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 프로젝트 -->
+        <section class="projects-section">
+            <h2 class="section-title">주요 프로젝트</h2>
+            <div class="projects-grid">
+                <!-- 프로젝트 1 -->
+                <div class="project-card">
+                    <h3 class="project-title">Smart Security System</h3>
+                    <p class="project-description">AI 기반 자동화 솔루션. 실시간 위협 탐지 및 대응 기능을 제공합니다.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">Linux</span>
+                        <span class="tech-tag">Raspberry Pi</span>
+                        <span class="tech-tag">Digital Forensic</span>
+                    </div>
+                    <p class="project-members">참여: 오지원, 조혜림</p>
+                    <span class="project-status status-ongoing">진행중</span>
+                </div>
+                
+                <!-- 프로젝트 2 -->
+                <div class="project-card">
+                    <h3 class="project-title">Cloud Management Platform</h3>
+                    <p class="project-description">클라우드 자원(VM, Storage)의 효율적인 모니터링 및 관리 플랫폼입니다.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">MySQL</span>
+                    </div>
+                    <p class="project-members">참여: 장서준, 김태훈</p>
+                    <span class="project-status status-completed">완료</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 팀 소개 영상 -->
+        <section class="team-section">
+            <h2 class="section-title">팀 소개 영상</h2>
+            <div class="video-container">
+                <div class="embed-container">
+                    <iframe
+                        src="https://www.youtube.com/embed/k-Z8__0gC8k"
+                        frameborder="0"
+                        title="팀 소개 영상"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Sparkle. All rights reserved.</p>
+        <p class="footer-copyright-sub">Made by Sparkle team</p>
+    </footer>
+
+    <!-- 모달 (기존과 동일) -->
+    <div id="memberModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <div class="modal-detail">
+                <!-- 모달 내용은 JavaScript로 채워짐 -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const MEMBERS_DATA = {
+            1: {
+                name: "오지원",
+                role: "팀장",
+                position: "Project Manager & IT Specialist",
+                department: "융합보안학과",
+                phone: "010-5119-33**",
+                email: "neje***@dgu.ac.kr",
+                github: "github.com/nejenne",
+                bio: "4년간의 IT 경험과 솔루션 개발 및 자동화, 보안 전문 지식을 바탕으로 팀을 이끌고 있습니다.",
+                skills: ["Network Security", "Python", "Penetration Testing", "Solution Development"],
+                photo: "👨‍💻"
+            },
+            2: {
+                name: "조혜림",
+                role: "팀원",
+                position: "AI Developer",
+                department: "융합보안학과",
+                phone: "010-7154-28**",
+                email: "johyerim@dgu.ac.kr",
+                github: "github.com/Johyerim06",
+                bio: "AI와 머신러닝을 활용한 혁신적인 솔루션 개발에 집중하고 있습니다.",
+                skills: ["Machine Learning", "TensorFlow", "HuggingFace", "Computer Vision"],
+                photo: "👩‍💻"
+            },
+            3: {
+                name: "장서준",
+                role: "팀원",
+                position: "Frontend Developer",
+                department: "국제통상학과",
+                phone: "010-6277-86**",
+                email: "sob5474@dgu.ac.kr",
+                github: "github.com/SeojunJang",
+                bio: "데이터 사이언스를 통해 가치를 창출해나가고자 합니다",
+                skills: ["Data Science", "Machine Learning", "Python"],
+                photo: "👩‍💻"
+            },
+            4: {
+                "id": 4,
+                "name": "김태훈",
+                "role": "팀원",
+                "position": "Backend & Server Developer",
+                "department": "산업시스템공학과",
+                "phone": "010-****",
+                "email": "chickenm00.@dgu.ac.kr",
+                "skills": ["Java", "Spring Boot", "Node.js", "Linux", "Docker"],
+                "photo": "👨‍💻",
+                "bio": "효율적인 서버 개발과 손쉬운 배포를 위한 통합형 프레임워크 환경을 제공합니다.",
+                "github": "github.com/dasher1029"
+            }
+        };
+
+        function showMemberModal(id) {
+            const member = MEMBERS_DATA[id];
+            if (!member) return;
+            
+            // 모달 내용 업데이트
+            document.querySelector('.modal-detail').innerHTML = `
+                <p class="modal-photo">${member.photo}</p>
+                <h3>${member.name}</h3>
+                <p><span>${member.role}</span> / <span>${member.position}</span></p>
+                
+                <div class="modal-contact-info">
+                    <p><span class="detail-label">소속</span>${member.department}</p>
+                    <p><span class="detail-label">연락처</span>${member.phone}</p>
+                    <p><span class="detail-label">이메일</span>${member.email}</p>
+                    <p><span class="detail-label">GitHub</span><a href="https://${member.github}" target="_blank">${member.github}</a></p>
+                </div>
+
+                <p class="modal-bio">${member.bio}</p>
+                
+                <div class="skills modal-skills">
+                    ${member.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
+                </div>
+            `;
+            
+            document.getElementById('memberModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('memberModal').style.display = 'none';
+        }
+
+        // 모달 외부 클릭/ESC 키 이벤트
+        window.onclick = (e) => {
+            if (e.target == memberModal) closeModal();
+        };
+        window.onkeydown = (e) => {
+            if (e.key === 'Escape') closeModal();
+        };
+    </script>
+</body>
+</html>

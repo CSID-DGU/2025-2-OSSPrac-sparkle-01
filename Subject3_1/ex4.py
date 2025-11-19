@@ -104,4 +104,4 @@ def result_page():
     return render_template('result.html', data=all_results)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=9929)#무조건 5000으로 바꿔놓기 
+    app.run(debug=True, host='127.0.0.1', port=5000)#무조건 5000으로 바꿔놓기 
