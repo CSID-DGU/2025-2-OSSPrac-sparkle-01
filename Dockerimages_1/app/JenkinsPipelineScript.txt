@@ -3,8 +3,7 @@ pipeline {
     
     triggers { pollSCM('H/5 * * * *') } 
 
-    environment { 
-        DOCKER = credentials('docker-hub') 
+    environment {  
         GIT_REPO = 'https://github.com/CSID-DGU/2025-2-OSSPrac-sparkle-01.git' 
         BRANCH = 'main' 
         IMG_NAME = 'johyerim06/app' 
@@ -29,9 +28,11 @@ pipeline {
 
         stage('DockerHub Login') { 
             steps { 
-                sh ''' 
-                    echo $DOCKER_PSW | docker login -u $DOCKER_USR --password-stdin 
-                ''' 
+                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PW')]) 
+                {
+                    sh '''
+                        echo $DOCKER_PW | docker login -u $DOCKER_USER --password-stdin
+                }
             } 
         } 
         
