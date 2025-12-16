@@ -35,9 +35,9 @@ Flask, Docker, HTML, CSS등을 활용하여 오픈소스 소프트웨어 실습 
 ## 프로젝트 화면
 <table>
   <tr>
-    <th>팀 소개 메인 화면</th>
-    <th>팀원 추가 화면</th>
-    <th>연락처 화면</th>
+    <th width="33%">팀 소개 메인 화면</th>
+    <th width="33%">팀원 추가 화면</th>
+    <th width="33%">연락처 화면</th>
   </tr>
   <tr>
     <td>
