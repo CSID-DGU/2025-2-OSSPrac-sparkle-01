@@ -49,7 +49,7 @@ Flask, Docker, HTML, CSS등을 활용하여 오픈소스 소프트웨어 실습 
       <img src="https://github.com/user-attachments/assets/b31df6f5-a519-40e9-b733-3fa507332a3b" width="300">
     </td>
     <td>
-      <img src="https://github.com/user-attachments/assets/b200d260-1035-4968-bdf1-5133f3477940" width="300">
+      <img src="https://github.com/user-attachments/assets/6e0d4854-0b6c-489b-9d07-87a780c65ba3" width="300">
     </td>
   </tr>
 </table>
